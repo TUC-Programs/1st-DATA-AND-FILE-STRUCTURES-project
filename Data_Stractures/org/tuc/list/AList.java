@@ -16,7 +16,7 @@ public class AList implements List{
      * TO DO
      * Must put try...catch for exeptions
      * See again if the methods do the functionality of the project(last pages in the images of array)
-     * 
+     * check if it can be faster the code in the methods
      */
 
     @Override
