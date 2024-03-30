@@ -41,6 +41,7 @@ public class AAList implements List{
                     array[i][0] = new Node(element, element.getKey());
                     array[i][1] = new Node(null, tail);
                     break;
+                    // Here there should be a functionallity that changes the element before the one that was added to point into the location of the newly added element.
                 }
             }
             return true;
