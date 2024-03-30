@@ -43,7 +43,7 @@ public class AAList implements List{
                     /* Here there should be a functionallity that changes the element
                      * before the one that was added to point into the location of the newly added element.
                     */ 
-                    array[i-1][1] = new Node(null, i); // Hopefully this does the trick.
+                    array[i-1][1] = new Node(null, i); // Hopefully this does the trick. Note sure if i need to use it like the Node constructor.
                     break;
                 }
             }
