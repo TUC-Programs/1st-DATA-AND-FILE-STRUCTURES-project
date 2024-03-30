@@ -2,7 +2,7 @@ package org.tuc.list;
 
 public class AList implements List{
 
-  private Element[] myArray;
+    private Element[] myArray;
     private int size;
     private int maxSize;
 
@@ -14,17 +14,21 @@ public class AList implements List{
     }
     /*
      * TO DO
-     * Must put try...catch for exeptions
+     * 
      * See again if the methods do the functionality of the project(last pages in the images of array)
-     * check if it can be faster the code in the methods
+     * 
      */
 
     @Override
     public boolean insert(Element element){
-        if(size<maxSize){
-            myArray[size]= element;
-            size++;
-            return true;
+        try{
+            if(size<maxSize){
+                myArray[size]= element;
+                size++;
+                return true;
+            }
+        }catch(ArrayIndexOutOfBoundsException ex){
+            System.err.println("Array index out of bounds."+ex.getMessage());
         }
         return false;
     }
@@ -32,28 +36,36 @@ public class AList implements List{
     @Override
     public boolean delete(int key){
 
-        if(size ==0){
-            return false;
-        }
-
-        for(int i=0; i<size; i++){
-            if(myArray[i].getKey()==key){
-                for(int j=i; j<size-1; j++){
-                    myArray[j]=myArray[j+1];
-                }
-                size--;
-                return true;
+        try{
+            if(size ==0){
+                return false;
             }
+    
+            for(int i=0; i<size; i++){
+                if(myArray[i].getKey()==key){
+                    for(int j=i; j<size-1; j++){
+                        myArray[j]=myArray[j+1];
+                    }
+                    size--;
+                    return true;
+                }
+            }
+        }catch(ArrayIndexOutOfBoundsException ex){
+            System.err.println("Array index out of bounds."+ex.getMessage());
         }
         return false;
     }
 
     @Override
     public Element search(int key){
-        for(int i=0; i<size; i++){
-            if(myArray[i].getKey()==key){
-                return myArray[i];
+        try{
+            for(int i=0; i<size; i++){
+                if(myArray[i].getKey()==key){
+                    return myArray[i];
+                }
             }
+        }catch(ArrayIndexOutOfBoundsException ex){
+            System.err.println("Array index out of bounds"+ex.getMessage());
         }
 
         return null;
