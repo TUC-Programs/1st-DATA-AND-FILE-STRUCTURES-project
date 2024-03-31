@@ -55,8 +55,23 @@ public class AAList implements List{
 
     @Override
     public boolean delete(int key){
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'delete'");
+        try {
+            for(int i = 0; i < MAX_SIZE; i++){
+                if(array[i][0].element.getKey() == key){
+                    array[i][0] = null;
+                    array[i][1] = new Node(null, -1);
+                    
+                    for(int j = 0; j < MAX_SIZE; j++){
+                        array[j][0] = array[j-1][0];
+                    }
+                    break;
+                }
+            }
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
+        
     }
 
     @Override
