@@ -77,7 +77,7 @@ public class AList implements List{
     public Element search(int key){
         try{
             for(int i=0; i<size; i++){
-                if(myArray[i].getKey()==key){
+                if(myArray[i].getKey()==key){          // I am not sure if it work
                     return (Element) myArray[i];
                 }
             }
@@ -85,7 +85,7 @@ public class AList implements List{
             System.err.println("Array index out of bounds"+ex.getMessage());
         }
 
-        return null;
+        return null; //
     }
 
 
