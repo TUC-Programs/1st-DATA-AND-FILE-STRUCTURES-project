@@ -76,8 +76,21 @@ public class AAList implements List{
 
     @Override
     public Element search(int key){
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'search'");
+        try {
+            Element result = null; // Not sure need to look more into this
+
+            for(int i = 0; i < MAX_SIZE; i++){
+                if(array[i][0].element.getKey() == key){
+                    result = (Element) array[i][0]; // Casting is used to convert from Node to Element. The only way i found how to make it work.
+                    break;
+                }
+            }
+            return result;
+
+        } catch (Exception e) {
+            System.err.println("Error while searching..."+e.getMessage());
+            return null;
+        }
     }
     
 }
