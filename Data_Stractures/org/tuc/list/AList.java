@@ -11,8 +11,8 @@ public class AList implements List{
     private int size;
     private int maxSize;
 
-    public AList(int maximum){
-        this.maxSize=maxSize;
+    public AList(){
+       
         this.myArray= new Node[maxSize];
         this.size=0;
         
@@ -31,11 +31,16 @@ public class AList implements List{
 
 
     
-    @Override
+   @Override
     public boolean insert(Element element){
         try{
             if(size<maxSize){
-                myArray[size]= element;
+                if(size >0 ){
+                    for(int i=0; i>0; i--){
+                        myArray[i]=myArray[i-1];
+                    }
+                }
+                myArray[0]= (Node) element;
                 size++;
                 return true;
             }
@@ -73,7 +78,7 @@ public class AList implements List{
         try{
             for(int i=0; i<size; i++){
                 if(myArray[i].getKey()==key){
-                    return myArray[i];
+                    return (Element) myArray[i];
                 }
             }
         }catch(ArrayIndexOutOfBoundsException ex){
