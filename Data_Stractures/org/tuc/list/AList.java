@@ -1,14 +1,19 @@
 package org.tuc.list;
 
+import org.tuc.List;
+import org.tuc.Element;
+import org.tuc.Node;
+
+
 public class AList implements List{
 
-    private Element[] myArray;
+    private Node[] myArray;
     private int size;
     private int maxSize;
 
     public AList(int maximum){
         this.maxSize=maxSize;
-        this.myArray= new Element[maxSize];
+        this.myArray= new Node[maxSize];
         this.size=0;
         
     }
@@ -19,6 +24,13 @@ public class AList implements List{
      * 
      */
 
+
+
+    // TO DO
+    //Fix the right array as node 
+
+
+    
     @Override
     public boolean insert(Element element){
         try{
