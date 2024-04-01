@@ -1,9 +1,11 @@
 package org.tuc.list;
 
 import org.tuc.Element;
+import org.tuc.binarysearchnode.Binarysearch;
 
 public class SAList extends AList{
-  private int size;
+
+    private int size;
     private int tail;
     private Element[] elements;
 
@@ -85,6 +87,5 @@ public class SAList extends AList{
 
         elements= newElements;
     }
-  
 
 }

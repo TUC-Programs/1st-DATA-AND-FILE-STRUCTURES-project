@@ -11,27 +11,21 @@ public class AList implements List{
     private int size;
     private int maxSize;
 
-    public AList(){
-       
+    protected AList(){
+        
         this.myArray= new Node[maxSize];
         this.size=0;
         
     }
+
     /*
      * TO DO
-     * 
+     * Must put try...catch for exeptions
      * See again if the methods do the functionality of the project(last pages in the images of array)
      * 
      */
 
-
-
-    // TO DO
-    //Fix the right array as node 
-
-
-    
-   @Override
+    @Override
     public boolean insert(Element element){
         try{
             if(size<maxSize){
@@ -77,7 +71,7 @@ public class AList implements List{
     public Element search(int key){
         try{
             for(int i=0; i<size; i++){
-                if(myArray[i].getKey()==key){          // I am not sure if it work
+                if(myArray[i].getKey()==key){
                     return (Element) myArray[i];
                 }
             }
@@ -85,9 +79,7 @@ public class AList implements List{
             System.err.println("Array index out of bounds"+ex.getMessage());
         }
 
-        return null; //
+        return null;
     }
-
-
 
 }
