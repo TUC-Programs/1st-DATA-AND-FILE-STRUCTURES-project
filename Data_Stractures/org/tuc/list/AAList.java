@@ -2,31 +2,34 @@ package org.tuc.list;
 
 import org.tuc.Element;
 import org.tuc.List;
+import org.tuc.Globals;
 
 public class AAList implements List{
-    private static final int MAX_SIZE = 10;
-    protected Node[][] array;
-    protected int tail;
-    protected int next;
+    private int MAX_SIZE;
+    protected Node[] elementArray;
+    protected int[] pointerArray;
 
-    private AAList(){
-        array = new Node[MAX_SIZE][2];
+    protected int tail;
+
+    private AAList(int AAList_MaxSize){
+        MAX_SIZE = AAList_MaxSize;
+        elementArray = new Node[MAX_SIZE];
+        pointerArray = new int[MAX_SIZE];
         tail = -1;
+        for(int i = 0; i < MAX_SIZE; i++){
+            pointerArray[i] = i+1;
+        }
+        pointerArray[MAX_SIZE-1] = -1;
     }
 
     public static class  Node {
         Element element;
         int key;
-        Node next;
-        Node previous;
 
         public Node(Element element, int key) {
             this.element = element;
             this.key = key;
-            //this.next = next;
-            //this.previous=previous;
         }
-
     }
 
     @Override
