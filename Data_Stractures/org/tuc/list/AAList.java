@@ -5,14 +5,13 @@ import org.tuc.List;
 import org.tuc.Globals;
 
 public class AAList implements List{
-    private int MAX_SIZE;
+    private int MAX_SIZE = Globals.AAList_MaxSize;
     protected Node[] elementArray;
     protected int[] pointerArray;
 
     protected int tail;
 
-    private AAList(int AAList_MaxSize){
-        MAX_SIZE = AAList_MaxSize;
+    private AAList(){
         elementArray = new Node[MAX_SIZE];
         pointerArray = new int[MAX_SIZE];
         tail = -1;
@@ -35,18 +34,13 @@ public class AAList implements List{
     @Override
     public boolean insert(Element element){
         try{
-            if(tail == MAX_SIZE){
-                System.out.println("List is full !");
-                return false;
-            }
             for (int i = 0; i < MAX_SIZE; i++) {
-                if (array[i][0] == null) {
-                    array[i][0] = new Node(element, element.getKey());
-                    array[i][1] = new Node(null, tail);
+                if (elementArray[i] == null) {
+                    elementArray[i] = new Node(element, element.getKey());
                     /* Here there should be a functionallity that changes the element
                      * before the one that was added to point into the location of the newly added element.
                     */ 
-                    array[i-1][1] = new Node(null, i); // Hopefully this does the trick. Note sure if i need to use it like the Node constructor.
+                    // Hopefully this does the trick. Note sure if i need to use it like the Node constructor.
                     break;
                 }
             }
@@ -60,13 +54,13 @@ public class AAList implements List{
     public boolean delete(int key){
         try {
             for(int i = 0; i < MAX_SIZE; i++){
-                if(array[i][0].element.getKey() == key){
-                    array[i][0] = null;
-                    array[i][1] = new Node(null, -1);
+                if(elementArray[i].element.getKey() == key){
+                    pointerArray[i] = pointerArray[i+1];
+                    elementArray[i] = null;
                     
-                    for(int j = 0; j < MAX_SIZE; j++){
-                        array[j][0] = array[j-1][0];
-                    }
+                    //for(int j = i+1; j < MAX_SIZE; j++){
+                    //    pointerArray[j] = pointerArray[j+1];
+                    //}
                     break;
                 }
             }
@@ -83,8 +77,8 @@ public class AAList implements List{
             Element result = null; // Not sure need to look more into this
 
             for(int i = 0; i < MAX_SIZE; i++){
-                if(array[i][0].element.getKey() == key){
-                    result = (Element) array[i][0]; // Casting is used to convert from Node to Element. The only way i found how to make it work.
+                if(elementArray[i].element.getKey() == key){
+                    result = (Element) elementArray[i]; // Casting is used to convert from Node to Element. The only way i found how to make it work.
                     break;
                 }
             }
