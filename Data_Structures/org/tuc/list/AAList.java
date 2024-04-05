@@ -5,22 +5,23 @@ import org.tuc.List;
 import org.tuc.Globals;
 
 public class AAList implements List{
-    private int MAX_SIZE = Globals.AAList_MaxSize;
+    protected int MAX_SIZE = Globals.AAList_MaxSize;
     protected MyElement[] elementArray;
     protected int[] pointerArray;
 
-    private int tail1;
-    private int head1;
-    private int nextfree1;
+    protected int tail1;
+    protected int head1;
+    protected int nextfree1;
+    protected int length;
 
-    private AAList(){
+    protected AAList(){
         elementArray = new MyElement[MAX_SIZE];
         pointerArray = new int[MAX_SIZE];
         tail1 = 0;
         head1 = 0;
         nextfree1 = 0;
         for(int i = 0; i < MAX_SIZE; i++){
-            pointerArray[i] = i;
+            pointerArray[i] = i+1;
         }
         pointerArray[MAX_SIZE-1] = -1;
     }
@@ -51,6 +52,7 @@ public class AAList implements List{
             if(elementArray.length == 1){
                 head1 = index; //head = 0
             }
+            length = length + 1;
 
             for(int i = 0; i < MAX_SIZE; i++){                  // Sets the new tail element and restores the previous tail the pointer
                 if(index == i){
@@ -98,6 +100,7 @@ public class AAList implements List{
                             }
                         }
                     }
+                    length = length - 1;
                     break;
                 }
             }
