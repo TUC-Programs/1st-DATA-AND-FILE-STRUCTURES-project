@@ -23,6 +23,7 @@ public class DList implements List{
             }
             else{
                 tail.setNext(newNode);
+                newNode.setPrevious(tail);
                 tail=newNode;
             }
 
@@ -44,7 +45,10 @@ public class DList implements List{
             else if(head.getKey()==key){
                 head= head.getNext();
 
-                if(head== null){
+                if(head != null){
+                    head.setPrevious(null);;
+                }
+                else{
                     tail=null;
                 }
                 return true;
@@ -55,11 +59,13 @@ public class DList implements List{
 
             while(present.getNext()!= null){
                 if(present.getNext().getKey()==key){
-
-                    present.setNext(present.getNext().getNext());
-
-                    if(present.getNext() == null){
-                        tail= present;
+                    if(present.getNext().getNext() != null){
+                        present.setNext(present.getNext().getNext());
+                        present.getNext().setPrevious(present);
+                    }
+                    else{
+                        tail=present;
+                        tail.setNext(null);
                     }
 
                     return true;                  
@@ -84,7 +90,7 @@ public class DList implements List{
 
             while(head!=null){
                 if(present.getKey() == key){
-                    return present.element;
+                    return present.getElement();
                 }
                 present =present.getNext();
             }

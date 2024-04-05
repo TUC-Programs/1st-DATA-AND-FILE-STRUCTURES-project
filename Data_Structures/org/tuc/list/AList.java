@@ -1,26 +1,26 @@
 package org.tuc.list;
 
 import org.tuc.List;
+import org.tuc.MyElement;
 import org.tuc.Element;
-import org.tuc.Node;
 
 
 public class AList implements List{
 
-    private Node[] myArray;
+    private MyElement[] myArray;
     private int size;
     private int maxSize;
 
     protected AList(){
         
-        this.myArray= new Node[maxSize];
+        this.myArray= new MyElement[maxSize];
         this.size=0;
         
     }
 
     /*
      * TO DO
-     * Must put try...catch for exeptions
+     * 
      * See again if the methods do the functionality of the project(last pages in the images of array)
      * 
      */
@@ -34,7 +34,7 @@ public class AList implements List{
                         myArray[i]=myArray[i-1];
                     }
                 }
-                myArray[0]= (Node) element;
+                myArray[0]= (MyElement) element;
                 size++;
                 return true;
             }

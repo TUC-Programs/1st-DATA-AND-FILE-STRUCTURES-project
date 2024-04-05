@@ -9,7 +9,7 @@ public class SDList extends DList{
     public boolean insert(Element element){
         try{
             int key =element.getKey();
-            Node newNode = new Node(null,key);
+            Node newNode = new Node(key);
             
             if(isEmpty()){
                 head=newNode;
