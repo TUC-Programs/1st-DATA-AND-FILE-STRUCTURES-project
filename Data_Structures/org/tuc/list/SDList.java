@@ -5,6 +5,11 @@ import org.tuc.Node;
 
 public class SDList extends DList{
 
+    public SDList(){
+        super();
+    }
+
+
     @Override
     public boolean insert(Element element){
         try{
