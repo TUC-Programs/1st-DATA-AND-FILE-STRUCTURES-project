@@ -4,6 +4,11 @@ import org.tuc.Element;
 
 public class SAList extends AList{
 
+    public SAList(){
+        super();
+    }
+    
+
     private int size;
     //private int tail;
     private Element[] elements;
