@@ -4,9 +4,7 @@ import org.tuc.Element;
 
 public class SAList extends AList{
 
-    public SAList(){
-        super();
-    }
+   
     
 
     private int size;
@@ -14,6 +12,7 @@ public class SAList extends AList{
     private Element[] elements;
 
     protected SAList(){
+        super();
         this.elements=new Element[size];
         this.size=0;
         //this.tail=0;
