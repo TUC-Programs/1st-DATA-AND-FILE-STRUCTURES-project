@@ -27,16 +27,16 @@ public class SAAList extends AAList {
             }
 
             if(length > 1){
-                for(int i = 0; i < length-1; i++){
-                    for(int j = i; j < length; j++){
-                        if(elementArray[i].element.getKey() > elementArray[j].element.getKey()){
-                            pointerArray[j] = i;
-                        }else if(elementArray[i].element.getKey() < elementArray[j].element.getKey()){
-                            pointerArray[j] = pointerArray[i];
-                            pointerArray[i] = j;
-                        }
+                for(int j = 0; j < length; j++){
+                    int i = 0;
+                    if(elementArray[i].element.getKey() > elementArray[j].element.getKey()){
+                        pointerArray[j] = i;
+                    }else if(elementArray[i].element.getKey() < elementArray[j].element.getKey()){
+                        pointerArray[j] = pointerArray[i];
+                        pointerArray[i] = j;
                     }
                 }
+
                 for(int i = 0; i < length; i++){
                     if(elementArray[i].element.getKey() > elementArray[tail1].element.getKey()){
                         tail1 = i;
