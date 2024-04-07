@@ -26,50 +26,27 @@ public class SAAList extends AAList {
                 return true;
             }
 
-            // This is more correct than the one below it
             if(length > 1){
-                for(int i = 0; i < length; i++){
-                    for(int j = 0; j < length; j++){
+                for(int i = 0; i < length-1; i++){
+                    for(int j = i; j < length; j++){
                         if(elementArray[i].element.getKey() > elementArray[j].element.getKey()){
                             pointerArray[j] = i;
-                            head1 = j;
                         }else if(elementArray[i].element.getKey() < elementArray[j].element.getKey()){
                             pointerArray[j] = pointerArray[i];
                             pointerArray[i] = j;
-                            head1 = i;
                         }
                     }
                 }
-            }
-
-
-            // The one above is better
-            for(int i = 0; i < length; i++){
-                for(int j = 0; j < length; j++){
-                    if(elementArray[i].element.getKey() > elementArray[j].element.getKey()){
-                        pointerArray[j] = i;
-                        head1 = j;
-                    }else{
-                        pointerArray[j] = pointerArray[i];
-                        pointerArray[i] = j;
+                for(int i = 0; i < length; i++){
+                    if(elementArray[i].element.getKey() > elementArray[tail1].element.getKey()){
+                        tail1 = i;
+                        pointerArray[i] = -1;
+                    }
+                    if(elementArray[i].element.getKey() < elementArray[tail1].element.getKey()){
                         head1 = i;
                     }
                 }
             }
-
-            //for(int i = 1; i < MAX_SIZE-1; i++){                  // Sets the new tail element and restores the previous tail the pointer
-            //    if(elementArray[i].element.getKey() > elementArray[i-1].element.getKey()){ // 8>4
-            //        pointerArray[i] = -1; // [8  -1]
-            //        pointerArray[i-1] = i;   //[4   1]
-            //        tail1 = i; //tail1 = 0 | tail1 =1
-            //    }else{//4  8
-            //        pointerArray[i] = i-1;
-            //        if(elementArray[tail1].element.getKey() < elementArray[i].element.getKey()){
-            //            pointerArray[i-1] = -1;
-            //            tail1 = i-1;
-            //        }
-            //    }
-            //}
 
             if(elementArray.length == 10){                  // Set next open slot to -1 when array is full
                 nextfree1 = -1;
