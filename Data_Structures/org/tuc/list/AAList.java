@@ -49,16 +49,16 @@ public class AAList implements List{
             elementArray[index] = new MyElement(element, element.getKey());                      // Adding the current element to the next free position that we have
             nextfree1 = pointerArray[nextfree1];            // Getting the pointer of the recently added pointer for the next position
             //nextfree1 = 1 | nextfree1 = 2
-            if(elementArray.length == 1){
+            length = length + 1;
+            if(length == 1){
                 head1 = index; //head = 0
             }
-            length = length + 1;
 
             for(int i = 0; i < MAX_SIZE; i++){                  // Sets the new tail element and restores the previous tail the pointer
                 if(index == i){
                     pointerArray[i] = -1; // 0 [A  -1]  |  1[Β -1]
                     for(int j = 0; j < MAX_SIZE; j++){
-                        if(tail1 == j && elementArray.length != 1){
+                        if(tail1 == j && length != 1){
                             pointerArray[j] = i; //pointerArray = 1
                         }
                     }
@@ -66,7 +66,7 @@ public class AAList implements List{
                 }
             }
 
-            if(elementArray.length == 10){                  // Set next open slot to -1 when array is full
+            if(length == 10){                  // Set next open slot to -1 when array is full
                 nextfree1 = -1;
             }
             return true;
