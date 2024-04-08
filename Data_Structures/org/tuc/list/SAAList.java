@@ -15,13 +15,13 @@ public class SAAList extends AAList {
                 return false;
             }
 
-            int index = nextfree1;  //index = 0 nextfree1 = 0   |     index = 1                    
+            int index = nextfree1;                    
             elementArray[index] = new MyElement(element, element.getKey());                      // Adding the current element to the next free position that we have
             nextfree1 = pointerArray[nextfree1];            // Getting the pointer of the recently added pointer for the next position
-            //nextfree1 = 1 | nextfree1 = 2
+
             
             if(length == 1){
-                head1 = index; //head = 0
+                head1 = index;
                 tail1 = index;
                 return true;
             }
