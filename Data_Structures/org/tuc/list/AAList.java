@@ -45,24 +45,24 @@ public class AAList implements List{
                 return false;
             }
 
-            int index = nextfree1;  //index = 0 nextfree1 = 0   |     index = 1                    
+            int index = nextfree1;                   
             elementArray[index] = new MyElement(element, element.getKey());                      // Adding the current element to the next free position that we have
             nextfree1 = pointerArray[nextfree1];            // Getting the pointer of the recently added pointer for the next position
-            //nextfree1 = 1 | nextfree1 = 2
+
             length = length + 1;
             if(length == 1){
-                head1 = index; //head = 0
+                head1 = index;
             }
 
             for(int i = 0; i < MAX_SIZE; i++){                  // Sets the new tail element and restores the previous tail the pointer
                 if(index == i){
-                    pointerArray[i] = -1; // 0 [A  -1]  |  1[Β -1]
+                    pointerArray[i] = -1;
                     for(int j = 0; j < MAX_SIZE; j++){
                         if(tail1 == j && length != 1){
-                            pointerArray[j] = i; //pointerArray = 1
+                            pointerArray[j] = i;
                         }
                     }
-                    tail1 = i; //tail1 = 0 | tail1 =1
+                    tail1 = i;
                 }
             }
 
