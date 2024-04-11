@@ -5,6 +5,11 @@ package org.tuc.projectManagerFrontEnd;
 public class ProjectManagerCLI {
 
     public static void main(String[] args) {
-        
+
+
+        //TO DO 
+        //
+        //A method to print the results
+        //
     }
 }
