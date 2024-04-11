@@ -1,55 +1,99 @@
 package org.tuc.searchtest;
 
-import java.rmi.dgc.DGC;
+
+import org.tuc.List;
 import java.util.Random;
+import org.tuc.Globals;
+import org.tuc.MyElement;
 
-import org.tuc.Node;
-import org.tuc.SearchDataStructure;
-import org.tuc.counter.MultiCounter;
+public abstract class Tester {
 
-public abstract class Tester implements SearchDataStructure {
 
-    private int [] numberOfNodesPerTest;
-    private int failureSearches;
-    private int successSearches;
-    private int minIntNumber;
-    private int maxIntNumber;
-
-    public Tester(int[] numberOfNodesPerTest, int failureSearches, int successSearches, int minIntNumber,int maxIntNumber) {
-        this.numberOfNodesPerTest = numberOfNodesPerTest;
-        this.failureSearches = failureSearches;
-        this.successSearches = successSearches;
-        this.minIntNumber = minIntNumber;
-        this.maxIntNumber = maxIntNumber;
-    }
-
-    private Node[] getRandomNumberNodes(int numberOfNodes){
-        Node[] randomNumbers= new Node[numberOfNodes];
-        Random randomGenerator=new Random();
-
-        int [] randomInts= randomGenerator.ints(minIntNumber,maxIntNumber+1).distinct().limit(numberOfNodes).toArray();
-
-        for(int countRandom=0; countRandom<numberOfNodes; countRandom++){
-////////////////////////////////////////////////////////            
+    public int[] createRandomNumbers(){
+        
+        int[] num = new int[Globals.N];
+        Random r = new Random();
+        for(int i=0; i<Globals.N; i++){
+            num[i]=r.nextInt(2*Globals.N+1);
         }
 
-        return randomNumbers;
+        return num;
     }
 
-    private long[] testSuccessSearch(SearchDataStructure searchDataStructure){
-        long startTime = System.nanoTime();
-        long finishTime= System.nanoTime();
-        int output=searchDataStructure.binarySearch();
-        int keyToSearch;
+    public void measureRunTime(List list, int[] keys, char choise){
 
-        if(output!= -1){
-            System.out.println("Element is in index: "+output);
-        }
-        else{
-            System.out.println("Error...Element not found");
+        char choose = Character.toLowerCase(choise); //here covert in lower case the user input to take correct both a and A 
+        long startTime= System.nanoTime();
+        int assigns =0;  //number of assigments 
+        int comparissons=0; //number of comparissons
+
+        switch (choose) {
+            case 'A':
+
+                for(int i=0; i< keys.length; i++){     //for loop to put the elements
+                    MyElement e= new MyElement(i);
+                    list.insert(e);
+                } 
+                break;
+            
+            case 'B':
+                Random r = new Random();                  
+                int [] rkeys= createRandomNumbers();   //here i call the above method to create random keys
+                int keyIndex= r.nextInt(keys.length); //here i find the index of array for the key which will be deleted
+                int deletekey= rkeys[keyIndex];       // put the key in a variable
+                list.delete(deletekey);               //delet the key with the using of method delte whitch contained in the 6 lists
+
+                break;
+        
+            case 'C':
+
+                Random ra = new Random();                  
+                int [] rakeys= createRandomNumbers();   
+                int keyindex= ra.nextInt(keys.length); 
+                int searchkey= rakeys[keyindex];       
+                list.delete(searchkey);               //search the key with the using of method search whitch contained in the 6 lists
+
+                break;   
+            
+            default:
+                System.out.println("Wrong choise...Try again select A,B,C.");
+                break;
         }
 
-        return null;
+        long endTime= System.nanoTime();
+        long runtime= endTime-startTime;
+
+        System.out.println("Total comparissons is: "+comparissons);
+        System.out.println("Total assigns is: "+assigns);
+        System.out.println("The runtime is: "+runtime);
     }
+    
+ 
+    /*TO DO
+     * 
+     * 2) Μετρήσεις
+        a) παράγετε K* τυχαίους αριθμούς από 1 έως 2*N (δε χρειάζεται να είναι μοναδικοί).
+        Για κάθε έναν εκτελείτε τη λειτουργία Α σε κάθε μία από τις 6 δομές σας.
+        Καταγράφετε κάθε φορά το χρόνο εκτέλεσης σε nanosecond και το πλήθος
+        πράξεων. Από τις K* εκτελέσεις της λειτουργίας Α, θα πάρετε το μέσο όρο του
+        χρόνου εκτέλεσης και το μέσο όρο των πράξεων για μία εκτέλεση της
+        λειτουργίας Α. Χρησιμοποιήστε 2 δεκαδικά ψηφία για τους μέσους όρους.*
+        K=10 όταν N < 201
+        K=50 όταν Ν > 200 και Ν < 1001
+        Κ=100 όταν Ν > 1000
+        b) το ίδιο με το a) αλλά για τη λειτουργία B
+        c) το ίδιο με το a) αλλά για τη λειτουργία Γ
+     * 
+     */
+
+
+
+
+    
+    
+    
+
+
+
 
 }
