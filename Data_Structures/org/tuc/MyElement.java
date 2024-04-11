@@ -2,7 +2,7 @@ package org.tuc;
 
 public class MyElement {
 
-    int key;
+    private int key;
 
     public MyElement(int key) {
         this.key = key;
