@@ -12,7 +12,7 @@ import org.tuc.Globals;
 public class ProjectManagerCLI {
 
     public static void main(String[] args) {
-        TestDataCollector tdc = new TestDataCollector();
+        TestDataCollector tdc = new TestDataCollector(); // Goes to TestDataCollector that extends to Tester (cant extend to tester because its abstract)
         for(int num : Globals.N){
             AAList aaList = new AAList();    // Start the lists
             AList aList = new AList();
