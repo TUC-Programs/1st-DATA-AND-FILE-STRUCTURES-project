@@ -11,7 +11,7 @@ public class AList implements List{
     private int size;
     private int maxSize;
 
-    protected AList(){
+    public AList(){
         
         this.myArray= new MyElement[maxSize];
         this.size=0;

@@ -1,5 +1,7 @@
 package org.tuc.searchtest;
 
-public class TestDataCollector {
+public class TestDataCollector extends Tester {
 
+    
+    
 }

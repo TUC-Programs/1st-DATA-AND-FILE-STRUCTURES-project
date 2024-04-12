@@ -11,7 +11,7 @@ public class SAList extends AList{
     //private int tail;
     private Element[] elements;
 
-    protected SAList(){
+    public SAList(){
         super();
         this.elements=new Element[size];
         this.size=0;

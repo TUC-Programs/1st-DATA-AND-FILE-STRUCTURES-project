@@ -1,6 +1,6 @@
 package org.tuc;
 
-public class MyElement {
+public class MyElement implements Element {
 
     private int key;
 

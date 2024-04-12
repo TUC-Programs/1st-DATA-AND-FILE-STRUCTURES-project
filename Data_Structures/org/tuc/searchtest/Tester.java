@@ -2,19 +2,31 @@ package org.tuc.searchtest;
 
 
 import org.tuc.List;
-import java.util.Random;
-import org.tuc.Globals;
 import org.tuc.MyElement;
+
+import java.util.Random;
+
+import org.tuc.Globals;
+import org.tuc.Element;
 
 public abstract class Tester {
 
 
-    public int[] createRandomNumbers(){
-        
-        int[] num = new int[Globals.N];
+    public int[] createRandomNumbers(int N){
+        int[] num = new int[N];
         Random r = new Random();
-        for(int i=0; i<Globals.N; i++){
-            num[i]=r.nextInt(2*Globals.N+1);
+        for(int i=0; i<N; i++){
+            num[i]=r.nextInt(2*N+1);
+        }
+
+        return num;
+    }
+
+    public int[] getRandomNum(){
+        int[] num = new int[1];
+        Random r = new Random();
+        for(int i=0; i<Globals.N.length; i++){
+            num[i]=r.nextInt(2*(Globals.N[i])+1);
         }
 
         return num;
@@ -31,14 +43,14 @@ public abstract class Tester {
             case 'A':
 
                 for(int i=0; i< keys.length; i++){     //for loop to put the elements
-                    MyElement e= new MyElement(i);
+                    Element e = new MyElement(i);
                     list.insert(e);
                 } 
                 break;
             
             case 'B':
                 Random r = new Random();                  
-                int [] rkeys= createRandomNumbers();   //here i call the above method to create random keys
+                int [] rkeys= getRandomNum();   //here i call the above method to create random keys
                 int keyIndex= r.nextInt(keys.length); //here i find the index of array for the key which will be deleted
                 int deletekey= rkeys[keyIndex];       // put the key in a variable
                 list.delete(deletekey);               //delet the key with the using of method delte whitch contained in the 6 lists
@@ -48,7 +60,7 @@ public abstract class Tester {
             case 'C':
 
                 Random ra = new Random();                  
-                int [] rakeys= createRandomNumbers();   
+                int [] rakeys= getRandomNum();   
                 int keyindex= ra.nextInt(keys.length); 
                 int searchkey= rakeys[keyindex];       
                 list.delete(searchkey);               //search the key with the using of method search whitch contained in the 6 lists

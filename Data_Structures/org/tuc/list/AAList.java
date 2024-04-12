@@ -14,7 +14,7 @@ public class AAList implements List{
     protected int nextfree1;
     protected int length;
 
-    protected AAList(){
+    public AAList(){
         elementArray = new MyElement[MAX_SIZE];
         pointerArray = new int[MAX_SIZE];
         tail1 = 0;
