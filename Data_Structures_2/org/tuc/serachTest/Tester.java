@@ -7,140 +7,109 @@ import org.tuc.interfaces.SearchInsert;
 import org.tuc.linearhashing.LinearHashing;
 
 public class Tester {
+        // Μέθοδος για την εκτέλεση των μετρήσεων
+    public void performMeasurements(int [] keys , int [] search) throws IOException {
+        int N = keys.length;
+        int K = getK(N);
+        
+        SearchInsert avlTree = new AVLTree();
+        SearchInsert bstTree = new BSTree();
+        SearchInsert bTree100 = new BTree(100);
+        SearchInsert bTree600 = new BTree(600);
+        SearchInsert linearHashing40 = new LinearHashing(40, 500);
+        SearchInsert linearHashing1000 = new LinearHashing(1000, 500);
 
-    private AVLTree avlTree;
-    private BSTree bsTree;
-    private BTree bTree1001;
-    private BTree bTree600;
-    private LinearHashing linear40;
-    private LinearHashing linear1000;
+        // Εισαγωγή των κλειδιών και μέτρηση του χρόνου εισαγωγής
+        long totalTimeInsertAVL = 0;
+        long totalTimeInsertBST = 0;
+        long totalTimeInsertBTree100 = 0;
+        long totalTimeInsertBTree600 = 0;
+        long totalTimeInsertLinear40 = 0;
+        long totalTimeInsertLinear1000 = 0;
 
-    public Tester() {
-        this.avlTree = new AVLTree();
-        this.bsTree = new BSTree();
-        this.bTree1001 = new BTree(1001); // Assuming this is the max keys per node
-        this.bTree600 = new BTree(600);  // Same here for max keys per node
-        this.linear40 = new LinearHashing(40, 500);
-        this.linear1000 = new LinearHashing(1000, 500);
+        for (int key : keys) {
+            totalTimeInsertAVL += measureInsertTime(avlTree, key);
+            totalTimeInsertBST += measureInsertTime(bstTree, key);
+            totalTimeInsertBTree100 += measureInsertTime(bTree100, key);
+            totalTimeInsertBTree600 += measureInsertTime(bTree600, key);
+            totalTimeInsertLinear40 += measureInsertTime(linearHashing40, key);
+            totalTimeInsertLinear1000 += measureInsertTime(linearHashing1000, key);
+        }
+
+        System.out.printf("N = %d%n", N);
+        System.out.printf("Avarage insert time AVL: %.2f ns%n", (double) totalTimeInsertAVL / N);
+        System.out.printf("Avarage insert time BST: %.2f ns%n", (double) totalTimeInsertBST / N);
+        System.out.printf("Avarage insert time BTree 100: %.2f ns%n", (double) totalTimeInsertBTree100 / N);
+        System.out.printf("Avarage insert time BTree 600: %.2f ns%n", (double) totalTimeInsertBTree600 / N);
+        System.out.printf("Avarage insert time Linear Hashing 40: %.2f ns%n", (double) totalTimeInsertLinear40 / N);
+        System.out.printf("Avarage insert time Linear Hashing 1000: %.2f ns%n", (double) totalTimeInsertLinear1000 / N);
+
+        // Αναζήτηση τυχαίων κλειδιών και μέτρηση του χρόνου αναζήτησης και του πλήθους επιπέδων
+        long totalTimeSearchAVL = 0;
+        long totalTimeSearchBST = 0;
+        long totalTimeSearchBTree100 = 0;
+        long totalTimeSearchBTree600 = 0;
+        long totalTimeSearchLinear40 = 0;
+        long totalTimeSearchLinear1000 = 0;
+
+        int totalLevelsSearchAVL = 0;
+        int totalLevelsSearchBST = 0;
+        int totalLevelsSearchBTree100 = 0;
+        int totalLevelsSearchBTree600 = 0;
+        int totalLevelsSearchLinear40 = 0;
+        int totalLevelsSearchLinear1000 = 0;
+
+        Random rand = new Random();
+        for (int i = 0; i < K; i++) {
+            int randomKey = rand.nextInt(3 * N) + 1;
+
+            //totalTimeSearchAVL += measureSearchTime(avlTree, randomKey);
+            //totalLevelsSearchAVL += ((AVLTree) avlTree).getLevels();
+
+            //totalTimeSearchBST += measureSearchTime(bstTString filePath, int Nree, randomKey);
+            //totalLevelsSearchBST += ((BSTree) bstTree).getLevels();
+
+            totalTimeSearchBTree100 += measureSearchTime(bTree100, randomKey);
+            totalLevelsSearchBTree100 += ((BTree) bTree100).getLevels();
+
+            totalTimeSearchBTree600 += measureSearchTime(bTree600, randomKey);
+            totalLevelsSearchBTree600 += ((BTree) bTree600).getLevels();
+
+            //totalTimeSearchLinear40 += measureSearchTime(linearHashing40, randomKey);
+            //totalLevelsSearchLinear40 += ((LinearHashing) linearHashing40).getLevels();
+
+            //totalTimeSearchLinear1000 += measureSearchTime(linearHashing1000, randomKey);
+            //totalLevelsSearchLinear1000 += ((LinearHashing) linearHashing1000).getLevels();
+        }
+
+        System.out.printf("Avarage time of search AVL: %.2f ns, Avarage number of level: %.2f%n", (double) totalTimeSearchAVL / K, (double) totalLevelsSearchAVL / K);
+        System.out.printf("Avarage time of search BST: %.2f ns, Avarage number of level: %.2f%n", (double) totalTimeSearchBST / K, (double) totalLevelsSearchBST / K);
+        System.out.printf("Avarage time of search BTree 100: %.2f ns, Avarage number of level: %.2f%n", (double) totalTimeSearchBTree100 / K, (double) totalLevelsSearchBTree100 / K);
+        System.out.printf("Avarage time of search BTree 600: %.2f ns, Avarage number of level: %.2f%n", (double) totalTimeSearchBTree600 / K, (double) totalLevelsSearchBTree600 / K);
+        System.out.printf("Avarage time of search Linear Hashing 40: %.2f ns, Avarage number of level: %.2f%n", (double) totalTimeSearchLinear40 / K, (double) totalLevelsSearchLinear40 / K);
+        System.out.printf("Avarage time of search Linear Hashing 1000: %.2f ns, Avarage number of level: %.2f%n", (double) totalTimeSearchLinear1000 / K, (double) totalLevelsSearchLinear1000 / K);
     }
 
-    public void runExperiments(int[] keys, int[] searchKeys) {
-        // Insert keys and measure insertion times
-        measureInsertionTimes(keys);
-
-        // Search for keys and measure search times and levels
+    // Μέθοδος για τον υπολογισμό του K βάσει του N
+    private int getK(int N) {
+        if (N < 201) return 10;
+        if (N < 1001) return 50;
+        return 100;
     }
 
-    private void measureInsertionTimes(int[] keys) {
-        System.out.println("Measuring Insertion Times");
-
+    // Μέθοδος για τη μέτρηση του χρόνου εισαγωγής
+    private long measureInsertTime(SearchInsert structure, int key) {
         long startTime = System.nanoTime();
-        for (int key : keys) {
-            avlTree.insert(key);
-        }
-        long endTime = System.nanoTime();
-        System.out.println("AVL Tree Insertion Time: " + (endTime - startTime) / keys.length + " ns per insertion");
-
-        startTime = System.nanoTime();
-        for (int key : keys) {
-            bsTree.insert(key);
-        }
-        endTime = System.nanoTime();
-        System.out.println("BSTree Insertion Time: " + (endTime - startTime) / keys.length + " ns per insertion");
-
-        startTime = System.nanoTime();
-        for (int key : keys) {
-            bTree1001.insert(key);
-        }
-        endTime = System.nanoTime();
-        System.out.println("BTree1001 Insertion Time: " + (endTime - startTime) / keys.length + " ns per insertion");
-
-        startTime = System.nanoTime();
-        for (int key : keys) {
-            bTree600.insert(key);
-        }
-        endTime = System.nanoTime();
-        System.out.println("BTree600 Insertion Time: " + (endTime - startTime) / keys.length + " ns per insertion");
-
-        startTime = System.nanoTime();
-        for (int key : keys) {
-            linear40.insert(key);
-        }
-        endTime = System.nanoTime();
-        System.out.println("Linear40 Insertion Time: " + (endTime - startTime) / keys.length + " ns per insertion");
-
-        startTime = System.nanoTime();
-        for (int key : keys) {
-            linear1000.insert(key);
-        }
-        endTime = System.nanoTime();
-        System.out.println("Linear1000 Insertion Time: " + (endTime - startTime) / keys.length + " ns per insertion");
+        structure.insert(key);
+        return System.nanoTime() - startTime;
     }
 
+    // Μέθοδος για τη μέτρηση του χρόνου αναζήτησης
+    private long measureSearchTime(SearchInsert structure, int key) {
+        long startTime = System.nanoTime();
+        structure.searchKey(key);
+        return System.nanoTime() - startTime;
+    }
     
-
-
-
-
-
-
-    /*AVLTree avlTree = new AVLTree();
-    BSTree bsTree = new BSTree();
-    BTree bTree1 = new BTree(50);
-    BTree bTree2 = new BTree(300);
-    LinearHashing linearHashing1 = new LinearHashing(40,500 );
-    LinearHashing linearHashing2 = new LinearHashing(1000,500 );
-
-
-    public static void insertTesting( SearchInsert str, int [] keys){
-        long beginTime = System.nanoTime();
-        for (int i = 0; i < keys.length; i++){
-            str.insert(i);
-        }
-        long finishTime = System.nanoTime();
-        long durTime = (finishTime - beginTime)/ keys.length;
-        System.out.println("Insert mean time "+durTime+"ns");
-    }
-
-
-    public static void searchTesting( SearchInsert str, int [] keys){
-        long tSearchTime = 0;
-        long tLevelTrees = 0;
-
-        for(int i=0; i < keys.length; i++){
-            long beginTime = System.nanoTime();
-            boolean find = str.searchKey(i);
-            long finishTime = System.nanoTime();
-            tSearchTime += (finishTime - beginTime);
-
-            //here the code to calculate the total Level of each tree
-        
-            if(str instanceof AVLTree){
-                int levels = ((AVLTree) str).getSearchKey(i);
-                tLevelTrees += levels;
-            }
-        
-        
-        }
-
-        long avergSearchTime = tSearchTime / keys.length;
-
-        System.out.println("Search mean time "+avergSearchTime+"ns");
-        System.out.println("Level of nodes "+tLevelTrees);
-    }
-
-
-     // Find the number of repeat for each node number
-     public static int RepeatTestCalc(int size){
-        int K;
-        if(size<201){
-            K=10;
-        }else if(size<1001){
-            K=50;
-        }else{
-            K=100;
-        }
-        return K;
-    }*/
 
 }
