@@ -7,6 +7,11 @@ import org.tuc.interfaces.SearchInsert;
 import org.tuc.linearhashing.LinearHashing;
 
 public class Tester {
+
+        /////////
+        //TO DO check if insert, search and level avarage number work
+        //////////
+        
         // Μέθοδος για την εκτέλεση των μετρήσεων
     public void performMeasurements(int [] keys , int [] search) throws IOException {
         int N = keys.length;
@@ -81,6 +86,8 @@ public class Tester {
             //totalTimeSearchLinear1000 += measureSearchTime(linearHashing1000, randomKey);
             //totalLevelsSearchLinear1000 += ((LinearHashing) linearHashing1000).getLevels();
         }
+
+        
 
         System.out.printf("Avarage time of search AVL: %.2f ns, Avarage number of level: %.2f%n", (double) totalTimeSearchAVL / K, (double) totalLevelsSearchAVL / K);
         System.out.printf("Avarage time of search BST: %.2f ns, Avarage number of level: %.2f%n", (double) totalTimeSearchBST / K, (double) totalLevelsSearchBST / K);
